@@ -1,6 +1,6 @@
 from flask import render_template, redirect, url_for
 from application import app, db
-from application.models import Songs
+from application.models import Song
 from application.forms import SongForm
 
 @app.route('/')
@@ -12,7 +12,7 @@ def home():
 def addsong():
     form = SongForm()
     if form.validate_on_submit():
-        postData = Songs(
+        postData = Song(
                 title = form.title.data,
                 artist = form.artist.data,
                 album = form.album.data,

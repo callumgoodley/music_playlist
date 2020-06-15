@@ -116,3 +116,13 @@ class UpdateAccountForm(FlaskForm):
             user = Users.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError('Email already in use')
+
+class AddPlaylist(FlaskForm):
+    name = StringField('Name',
+            validators = [
+                DataRequired(),
+                Length(min=1, max = 50)
+            ])
+    submit = SubmitField('Create Playlist')
+
+
