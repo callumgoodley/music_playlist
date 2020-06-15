@@ -12,14 +12,14 @@ def home():
 
 @app.route('/addsong', methods = ['GET', 'POST'])
 def addsong():
+    
     form = SongForm()
+    
     if form.validate_on_submit():
         postData = Song(
                 title = form.title.data,
                 artist = form.artist.data,
-                album = form.album.data,
-                genre = form.genre.data,
-                year = form.genre.data
+                album = form.album.data
                 )
         db.session.add(postData)
         db.session.commit()
@@ -30,10 +30,15 @@ def addsong():
 
 @app.route('/playlist', methods = ['GET', 'POST'])
 def playlist():
+    
     form = PlaylistForm()
+    email = current_user.email
+    userData = Users.query.filter(email==email).first()
+
     if form.validate_on_submit():
         postData = Playlist(
-                name = form.name.data
+                name = form.name.data,
+                user_id = userData.id
                 )
         db.session.add(postData)
         db.session.commit()
@@ -50,7 +55,7 @@ def register():
 
     form = RegistrationForm()
     if current_user.is_authenticated:
-        return redirect(url_for('home'))
+        return redirect(url_for('playlist'))
 
     if form.validate_on_submit():
         hash_pw = bcrypt.generate_password_hash(form.password.data)
@@ -60,7 +65,7 @@ def register():
         db.session.add(user)
         db.session.commit()
 
-        return redirect(url_for('playlist'))
+        return redirect(url_for('login'))
 
     return render_template('register.html', title='Register', form=form)
 
@@ -68,7 +73,7 @@ def register():
 def login():
     form = LoginForm()
     if current_user.is_authenticated:
-        return redirect(url_for('home'))
+        return redirect(url_for('playlist'))
 
     if form.validate_on_submit():
         user=Users.query.filter_by(email=form.email.data).first()
@@ -78,7 +83,7 @@ def login():
             if next_page:
                 return redirect(next_page)
             else:
-                return redirect(url_for('home'))
+                return redirect(url_for('playlist'))
     return render_template('login.html', title='Login', form=form)
 
 

@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, BooleanField
-from application.models import Users
+from application.models import Users, Playlist
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flask_login import current_user
 
@@ -23,18 +23,12 @@ class SongForm(FlaskForm):
                 Length(min=2, max=30)
                 ]
             )
-    genre = StringField('genre', 
-            validators = [
-                DataRequired(),
-                Length(min=2, max=30)
-                ]
-            )
-    year = StringField('year', 
-            validators = [
-                DataRequired(),
-                Length(min=4, max=4)
-                ]
-            )
+    if current_user:
+        users_playlists = Playlist.query.filter(user_id == current_user.id).all()
+        playlist_names = []
+        for playlist in users_playlists:
+            playlist_names.append(playlist.name)
+        playlist = SelectField('playlist', choices = playlist_names)
     submit = SubmitField('add song!')
 
 class RegistrationForm(FlaskForm):
