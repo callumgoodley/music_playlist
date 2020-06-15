@@ -117,7 +117,7 @@ class UpdateAccountForm(FlaskForm):
             if user:
                 raise ValidationError('Email already in use')
 
-class AddPlaylist(FlaskForm):
+class PlaylistForm(FlaskForm):
     name = StringField('Name',
             validators = [
                 DataRequired(),

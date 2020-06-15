@@ -1,14 +1,14 @@
 from flask import render_template, redirect, url_for
 from application import app, db
-from application.models import Song
-from application.forms import SongForm
+from application.models import Song, Playlist
+from application.forms import SongForm, PlaylistForm
 
 @app.route('/')
 @app.route('/home')
 def home():
     return render_template('home.html', title = 'Home')
 
-@app.route('/addsong')
+@app.route('/addsong', methods = ['GET', 'POST'])
 def addsong():
     form = SongForm()
     if form.validate_on_submit():
@@ -26,6 +26,14 @@ def addsong():
     
     return render_template('addsong.html', title='addsong', form = form)
 
-@app.route('/playlist')
+@app.route('/playlist', methods = ['GET', 'POST'])
 def playlist():
-    return render_template('playlist.html', title = 'Playlist')
+    form = PlaylistForm()
+    if form.validate_on_submit():
+        postData = Playlist(
+                name = form.name.data
+                )
+        db.session.add(postData)
+        db.session.commit()
+
+    return render_template('playlist.html', title = 'Playlist', form = form)
