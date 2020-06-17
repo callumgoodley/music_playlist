@@ -15,3 +15,4 @@ selenium==3.141.0
 virtualenv==20.0.2
 Flask-Bcrypt==0.7.1
 Flask-Testing==0.8.0
+WTForms-SQLAlchemy==0.1

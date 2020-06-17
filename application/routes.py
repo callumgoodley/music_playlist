@@ -12,9 +12,14 @@ def home():
 
 @app.route('/addsong', methods = ['GET', 'POST'])
 def addsong():
-    
     form = SongForm()
-    
+    form.playlist.query = Playlist.query.filter(Playlist.user_id == current_user.id).all()
+
+    playlist_names=[]
+    if current_user.is_authenticated:
+        users_playlists = Playlist.query.filter(Playlist.user_id == current_user.id).all()
+        for playlist in users_playlists:
+            playlist_names.append(playlist.name)
     if form.validate_on_submit():
         postData = Song(
                 title = form.title.data,
