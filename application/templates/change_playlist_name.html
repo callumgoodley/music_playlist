@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+{% block body_content %}
+<div class='form'>
+        <form method='POST' action=''>
+            {{ form.hidden_tag() }}
+            {{ form.name.label }}
+            {{ form.name }}
+            {% if form.name.errors %}
+                <div class="error">
+                        {% for error in form.name.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                </div>
+	{% endif %}
+	<div class='form_group'action={{url_for('individual_playlist',number = playlist.id)}} >{{ form.submit }}
+            </div>
+	</form>
+	{% endblock %}

@@ -3,8 +3,14 @@
 
 <h2>{{playlist.name}}</h2>
 {% for song in playlist.songs_playlist %}
-<p>Title: {{song.title}} Artist: {{song.artist}} Album: {{song.album}}</p>
+<p>Title: {{song.title}}&nbsp; Artist: {{song.artist}}&nbsp; Album: {{song.album}}</p>
+<div>
+<form action="{{ url_for('delete_song', number = song.id) }}">
+        <button type="submit">Delete song</button>
+</form>
+</div>
 {% endfor %}
+<br>
 <div class='form'>
         <form method='POST' action=''>
             {{ form.hidden_tag() }}
@@ -20,6 +26,11 @@
             <br>
             {{ form.submit }}
         </form>
-    </div>   
-
+    </div> 
+<form action="{{ url_for('change_playlist_name', number = playlist.id) }}">
+        <button type="submit">Change Playlist Name</button>
+</form>
+<form action="{{ url_for('delete_playlist', number = playlist.id) }}">
+        <button type="submit">Delete playlist</button>
+</form>
 {% endblock %}
