@@ -6,7 +6,6 @@
 <body>
 	{% if current_user.is_authenticated %}
 	<a href="{{ url_for('playlist') }}">Playlists</a>
-	<a href="{{ url_for('addsong') }}">Add Songs</a>
 	<a href="{{ url_for('account') }}">Account</a>
 	<a href="{{ url_for('logout') }}">Log Out</a>
 	{% else %}

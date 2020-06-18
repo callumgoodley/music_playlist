@@ -1,5 +1,10 @@
-{%extends 'layout.html'%}
+{% extends 'layout.html' %}
 {% block body_content %}
+
+<h2>{{playlist.name}}</h2>
+{% for song in playlist.songs_playlist %}
+<p>Title: {{song.title}} Artist: {{song.artist}} Album: {{song.album}}</p>
+{% endfor %}
 <div class='form'>
         <form method='POST' action=''>
             {{ form.hidden_tag() }}
@@ -12,11 +17,9 @@
             {{ form.album.label }}
             {{ form.album }}
             <br>
-	    {{ form.playlist.label }}
-            {{ form.playlist }}
-	    <br>
-	    <br>
+            <br>
             {{ form.submit }}
         </form>
-    </div>
+    </div>   
+
 {% endblock %}
