@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, request
 from application import app, db, bcrypt
-from application.models import Song, Playlist, Users
-from application.forms import SongForm, PlaylistForm, RegistrationForm, LoginForm, UpdateAccountForm
+from application.models import songs_playlist, Song, Playlist, Users
+from application.forms import SongForm, PlaylistForm, UpdatePlaylistForm, RegistrationForm, LoginForm, UpdateAccountForm
 from flask_login import login_user, current_user, logout_user, login_required
 
 
@@ -10,50 +10,90 @@ from flask_login import login_user, current_user, logout_user, login_required
 def home():
     return render_template('home.html', title = 'Home')
 
-@app.route('/addsong', methods = ['GET', 'POST'])
-def addsong():
-    form = SongForm()
-    form.playlist.query = Playlist.query.filter(Playlist.user_id == current_user.id).all()
-
-    playlist_names=[]
-    if current_user.is_authenticated:
-        users_playlists = Playlist.query.filter(Playlist.user_id == current_user.id).all()
-        for playlist in users_playlists:
-            playlist_names.append(playlist.name)
-    if form.validate_on_submit():
-        postData = Song(
-                title = form.title.data,
-                artist = form.artist.data,
-                album = form.album.data
-                )
-        db.session.add(postData)
-        db.session.commit()
-
-        return redirect(url_for('playlist'))
-    
-    return render_template('addsong.html', title='addsong', form = form)
-
 @app.route('/playlist', methods = ['GET', 'POST'])
 def playlist():
-    
+    playlists = Playlist.query.filter_by(user_id = current_user.id)
     form = PlaylistForm()
-    email = current_user.email
-    userData = Users.query.filter(email==email).first()
+    id = current_user.id
 
     if form.validate_on_submit():
         postData = Playlist(
                 name = form.name.data,
-                user_id = userData.id
+                user_id = id
                 )
         db.session.add(postData)
         db.session.commit()
 
-    return render_template('playlist.html', title = 'Playlist', form = form)
+    return render_template('playlist.html', title = 'Playlist', form = form, playlists=playlists)
 
-@app.route('/playlist/<int:number>', methods = ['GET', 'POST'])
-def individual_playlist(playlist_id):
-    playlistData = Playlist.query.filter(id=playlist_id).all()
-    return render_template('individual_playlist.html', title = 'Indiviual Playlist', playlist=playlistData)
+@app.route('/playlist/<number>', methods = ['GET', 'POST'])
+def individual_playlist(number):
+    form = SongForm()
+    playlist = Playlist.query.filter_by(id=number).first()
+    
+    if form.validate_on_submit():
+        song_to_add = Song(
+                title = form.title.data,
+                artist = form.artist.data,
+                album = form.album.data
+                )
+        
+        song_to_add.songs_playlist.append(playlist)
+
+        db.session.add(song_to_add)
+        db.session.commit()
+
+    return render_template('individual_playlist.html', title = 'Indiviual Playlist', form=form, playlist=playlist)
+
+@app.route('/change_playlist_name/<number>', methods = ['GET', 'POST'])
+@login_required
+def change_playlist_name(number):
+
+    form = UpdatePlaylistForm()
+
+    playlist = Playlist.query.filter_by(id=number).first()
+
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
+
+    if form.validate_on_submit():
+        playlist.name = form.name.data
+        db.session.commit()
+        return redirect(url_for("individual_playlist", number = number))
+    elif request.method == 'GET':
+        form.name.data = playlist.name
+
+    return render_template('change_playlist_name.html', title = 'Change Playlist Name', form=form, playlist=playlist)
+
+
+
+@app.route('/delete_playlist/<number>', methods = ['GET', 'POST'])
+@login_required
+def delete_playlist(number):
+
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
+
+    playlist = Playlist.query.filter_by(id=number).first()
+
+    db.session.delete(playlist)
+    db.session.commit()
+
+    return redirect(url_for('playlist')) 
+
+@app.route('/delete_song/<number>', methods = ['GET', 'POST'])
+@login_required
+def delete_song(number):
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
+
+    
+    song = Song.query.filter_by(id=number).first() 
+
+    db.session.delete(song)
+    db.session.commit()
+         
+    return redirect(url_for('playlist'))
 
 @app.route('/register', methods = ['GET', 'POST'])
 def register():

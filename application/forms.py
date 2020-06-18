@@ -29,7 +29,6 @@ class SongForm(FlaskForm):
                 DataRequired(),
                 Length(min=2, max=30)
                 ])
-    playlist = QuerySelectField('playlist', allow_blank=False, get_label='name', get_pk=get_pk)
     submit = SubmitField('add song!')
 
 class RegistrationForm(FlaskForm):
@@ -120,4 +119,11 @@ class PlaylistForm(FlaskForm):
             ])
     submit = SubmitField('Create Playlist')
 
+class UpdatePlaylistForm(FlaskForm):
+    name = StringField('Playlist Name',
+            validators = [
+                DataRequired(),
+                Length(min=1, max=30)
+                ])
+    submit = SubmitField('Rename Playlist')
 
