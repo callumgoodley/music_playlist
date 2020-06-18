@@ -1,5 +1,11 @@
 {% extends 'layout.html' %}
 {% block body_content %}
+
+<h2>Current Playlists</h2>
+{% for playlist in playlists %}
+<h3>{{playlist.name}} <a href="{{ url_for('individual_playlist', number = playlist.id) }}">view</a></h3>
+{% endfor %}
+<h2>Add a new playlist</h2>
 <div class='form'>
 	<form method='POST' action=''>
 	    {{ form.hidden_tag() }}
@@ -19,6 +25,4 @@
             </div
 	</form>
 </div>
-	
-
 {% endblock %}
