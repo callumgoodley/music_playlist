@@ -182,7 +182,3 @@ class TestUser(TestBase):
             res = self.client.post(url_for('register'), data=dict(first_name='test_user', last_name='ibwd', email='test@email.com', password ='password'))
             self.assertIn(b'test_user', res.data)
 
-    def test_delete_user(self):
-        with self.client:
-            res = self.client.delete(url_for('account_delete'), data=dict(first_name='test_user', last_name='ibwd', email='test@email.com', password ='password'), follow_redirects=True)
-            self.assertNotIn(b'test_user', res.data)
