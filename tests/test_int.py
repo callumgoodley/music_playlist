@@ -14,7 +14,7 @@ test_admin_first_name = "test"
 test_admin_last_name = "user"
 test_admin_email = "test@user.com"
 test_admin_password = "testuser"
-
+playlist_no_name = ""
 class TestBase(LiveServerTestCase):
 
     def create_app(self):
@@ -98,3 +98,4 @@ class TestLogin(TestBase):
         
         if __name__ == '__main__':
             unittest.main(port=5000)
+
