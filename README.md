@@ -10,18 +10,18 @@
 ## Contents 
 
 * Brief
-  * Additional Requirements
-  * My Approach
-* Architecture
-  * Databse Structure
-  * CI Pipeline
-* Project Tracking
-* Risk Assessment
+  * Minimum Requirements
+* Functionality
+* Data
+* Tech Stack
+* CI Pipeline 
 * Testing 
 * Front-End Design
+* Risk Assessment
 * Known Issues
 * Future Improvements
 * Authors
+
 
 ## Brief
 
@@ -38,6 +38,7 @@ In the simplest terms this meant that I was tasked with creating an application 
 * Fully designed test suites for application with high coverage and reports on testing
 * Functional front-end website and integrated API's using Flask.
 * Code integrated into a version control system using feature branch model which will subsequently be built through a CI server and deployed to a cloud-based VM
+
 
 ## Functionality
 
@@ -62,6 +63,7 @@ The images below display the full extent of the user stories created for making 
 ![Trello1](https://user-images.githubusercontent.com/56595709/85229389-4e3f3480-b3e1-11ea-9a10-c69106a355c3.png)
 ![Trello2](https://user-images.githubusercontent.com/56595709/85229384-497a8080-b3e1-11ea-81c4-91f90f5fadd6.png)
 
+
 ## Data
 
 Firstly it is important to outline the data for the database and the relationships between them. Below is an entity relationship diagram outlining just that:
@@ -72,9 +74,10 @@ As you can see in the image the afforementioned many to many relationship betwee
 
 Also visible within this diagram is the realtiohsip between users and playlists in which a playlist must always belong to a user and the schema dictates that each playlist must have a user id attached to it.  
 
+
 ## Tech Stack
 
-Following the brief I ahve implemented the following tech stack as learned during training: 
+Following the brief I have implemented the following tech stack as learned during training: 
 
 * Trello for a Kanban Board
 * GCP SQL Server using mySQL for Database purposes
@@ -89,10 +92,7 @@ Following the brief I ahve implemented the following tech stack as learned durin
 * Systemsd to run the app as service 
 
 
-
-
-
-###CI Pipeline
+## CI Pipeline
 
 Below is an image depicting the flow of the app and how each part of the tech stack fits into the CI pipeline.
 
@@ -107,6 +107,20 @@ As can be seen in the image of the continuous integration pipeline the flow goes
 * By automating this through Jenkins it is possible to test and run the app just by triggering a Jenkins job
 * The Jenkins job will run Pytest and produce a report of the test results and will run the app itself as a systemsd service running on Gunicorn
 
+## Testing
 
+![pytest](https://user-images.githubusercontent.com/56595709/85231941-5acc8880-b3f3-11ea-808d-4c0989797cb5.png)
+
+Testing the app involved implementing two types of testing Unit and Integration. For the unit testing I used Unittest with Pytest and then for the integration testing I used Selenium and Pytest. Above is an image of the coverage report supplied by pytest this indicates how much of the application is and is not tested.
+
+The Unit testing mainly tests the functionality of the back end of the project and the integration testing assesses the functionality of the front end in conjunction with the back end. Both of these testing suites have been automated using Jenkins the result of which you can see in the image below.
+
+![jenkins] (https://user-images.githubusercontent.com/56595709/85231870-9c106880-b3f2-11ea-8629-3364a5a4329c.png)
+
+## Front end design
+
+## Risk Assessment 
+
+## Possible improvements
 
 
