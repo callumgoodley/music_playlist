@@ -5,11 +5,6 @@ from application.models import Users, Playlist
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flask_login import current_user
 
-def playlist_query():
-    return Playlist.query
-
-def get_pk(obj):
-    return str(obj)
 
 class SongForm(FlaskForm):
     title = StringField('title', 

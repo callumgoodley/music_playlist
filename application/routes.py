@@ -12,6 +12,9 @@ def home():
 
 @app.route('/playlist', methods = ['GET', 'POST'])
 def playlist():
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
+    
     playlists = Playlist.query.filter_by(user_id = current_user.id)
     form = PlaylistForm()
     id = current_user.id
@@ -27,20 +30,27 @@ def playlist():
     return render_template('playlist.html', title = 'Playlist', form = form, playlists=playlists)
 
 @app.route('/playlist/<number>', methods = ['GET', 'POST'])
+@login_required
 def individual_playlist(number):
     form = SongForm()
     playlist = Playlist.query.filter_by(id=number).first()
+    song_exists = Song.query.filter_by(title=form.title.data).filter_by(artist=form.artist.data).filter_by(album=form.album.data).first() 
     
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
+
     if form.validate_on_submit():
         song_to_add = Song(
                 title = form.title.data,
                 artist = form.artist.data,
                 album = form.album.data
                 )
-        
-        song_to_add.songs_playlist.append(playlist)
+        if song_exists:
+            song_exists.songs_playlist.append(playlist)
+        else:
+            song_to_add.songs_playlist.append(playlist)
+            db.session.add(song_to_add)
 
-        db.session.add(song_to_add)
         db.session.commit()
 
     return render_template('individual_playlist.html', title = 'Indiviual Playlist', form=form, playlist=playlist)

@@ -2,9 +2,10 @@ import unittest
 
 from flask import url_for
 from flask_testing import TestCase
-
+from wtforms.validators import ValidationError
 from application import app, db, bcrypt
 from application.models import Users, Playlist, Song
+from application.forms import UpdateAccountForm, RegistrationForm
 from os import getenv
 
 class TestBase(TestCase):
@@ -158,6 +159,7 @@ class TestPlaylist(TestBase):
     
     def test_change_playlist_name(self):
         with self.client:
+            
             res1 = self.client.post(
                     '/login',
                     data=dict(
@@ -178,5 +180,13 @@ class TestUser(TestBase):
 
     def test_add_new_user(self):
         with self.client:
-            res = self.client.post(url_for('register'), data=dict(first_name='test_user', last_name='ibwd', email='test@email.com', password ='password'))
-            self.assertIn(b'test_user', res.data)
+            
+            res = self.client.post(url_for('register'), data=dict(first_name='test_user', last_name='test_user', email='test@email.com', password ='password'))
+            
+            self.assertIn(b'test_user',res.data)
+
+            def test_validate_email(self):
+                with self.client:
+                    email = dict(data = 'callumgoodley@gmail.com')
+                    self.assertRaises(ValidationError, RegistrationForm.validate_email(self, email))
+
