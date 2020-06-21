@@ -57,9 +57,20 @@ The users stories that satisified the brief were as follows:
 
 * A user must be able to UPDATE their playlist names as well as their own account details 
 
+The images below display the full extent of the user stories created for making this application as well as the layout and flow of the agile cycle implemented throughout the course of the project:
+
+![Trello1](https://user-images.githubusercontent.com/56595709/85229389-4e3f3480-b3e1-11ea-9a10-c69106a355c3.png)
+![Trello2](https://user-images.githubusercontent.com/56595709/85229384-497a8080-b3e1-11ea-81c4-91f90f5fadd6.png)
+
 ## Data
 
+Firstly it is important to outline the data for the database and the relationships between them. Below is an entity relationship diagram outlining just that:
 
+![ERD](https://user-images.githubusercontent.com/56595709/85230226-b2b0c280-b3e6-11ea-8834-0fade483c8a8.jpg)
+
+As you can see in the image the afforementioned many to many relationship between between songs and playlists uses an intermidiary table to afford the ability for songs to belong to multiple playlists without creating duplicates and also for playlists to be associated with mutliple songs as one would expect.
+
+Also visible within this diagram is the realtiohsip between users and playlists in which a playlist must always belong to a user and the schema dictates that each playlist must have a user id attached to it.  
 
 ## Tech Stack
 
