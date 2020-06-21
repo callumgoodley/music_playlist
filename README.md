@@ -73,4 +73,4 @@ Following the brief I ahve implemented the following tech stack as learned durin
 * Gunicorn to run the app
 * Systemsd to run the app as service 
 
-
+![CI Pipeline](https://user-images.githubusercontent.com/56595709/85229371-3ff11880-b3e1-11ea-95ae-694909481f6b.jpg)
