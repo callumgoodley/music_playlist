@@ -119,6 +119,36 @@ The Unit testing mainly tests the functionality of the back end of the project a
 
 ## Front end design
 
+The front end design is very simple and operates on a purely operational basis.
+
+The app url loads the first page up for the user.
+
+![home](https://user-images.githubusercontent.com/56595709/85233986-65dae500-b402-11ea-8616-9659d9c32c7b.png)
+
+From the home page the first port of call will be to register for an account on the registration page.
+
+![registration](https://user-images.githubusercontent.com/56595709/85233988-670c1200-b402-11ea-9566-45161abb9b4e.png)
+
+Once an account has been created the user can then log in to their account.
+
+![login](https://user-images.githubusercontent.com/56595709/85233989-683d3f00-b402-11ea-9cba-5045f7b8b4e8.png)
+
+Once a user has logged in they will be redirected to the playlist page where they can view a list of the playlists they've created or create a new playlist.
+
+![playlists](https://user-images.githubusercontent.com/56595709/85233991-696e6c00-b402-11ea-9964-65d610cb1a82.png)
+
+Once a user has created a playlist they will be able to then view that playlist and add songs to it on the playlists individual page.
+
+![individual playlist](https://user-images.githubusercontent.com/56595709/85233992-696e6c00-b402-11ea-8fbc-6fc84215c5e8.png)
+
+Once the user has created playlists they always have the option to change that playlists name.
+
+![change playlist] (https://user-images.githubusercontent.com/56595709/85233993-6a070280-b402-11ea-9604-a897c67e4cbe.png)
+
+Lastly the user always has the ability to change their account details via the account page.
+
+![account](https://user-images.githubusercontent.com/56595709/85233994-6a9f9900-b402-11ea-82b8-deb37939012c.png)
+
 ## Risk Assessment 
 
 ## Possible improvements
