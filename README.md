@@ -2,7 +2,6 @@
 
 ### Resources
 
-* Presentation
 * Trello - https://trello.com/b/zCibjKkO/number-1s-music-app
 * Website - http://35.242.143.43:5000
 
