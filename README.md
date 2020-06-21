@@ -115,7 +115,7 @@ Testing the app involved implementing two types of testing Unit and Integration.
 
 The Unit testing mainly tests the functionality of the back end of the project and the integration testing assesses the functionality of the front end in conjunction with the back end. Both of these testing suites have been automated using Jenkins the result of which you can see in the image below.
 
-![jenkins] (https://user-images.githubusercontent.com/56595709/85231870-9c106880-b3f2-11ea-8629-3364a5a4329c.png)
+![jenkins](https://user-images.githubusercontent.com/56595709/85231870-9c106880-b3f2-11ea-8629-3364a5a4329c.png)
 
 ## Front end design
 
@@ -143,7 +143,7 @@ Once a user has created a playlist they will be able to then view that playlist 
 
 Once the user has created playlists they always have the option to change that playlists name.
 
-![change playlist] (https://user-images.githubusercontent.com/56595709/85233993-6a070280-b402-11ea-9604-a897c67e4cbe.png)
+![change playlist](https://user-images.githubusercontent.com/56595709/85233993-6a070280-b402-11ea-9604-a897c67e4cbe.png)
 
 Lastly the user always has the ability to change their account details via the account page.
 
