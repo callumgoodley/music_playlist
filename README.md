@@ -57,6 +57,10 @@ The users stories that satisified the brief were as follows:
 
 * A user must be able to UPDATE their playlist names as well as their own account details 
 
+## Data
+
+
+
 ## Tech Stack
 
 Following the brief I ahve implemented the following tech stack as learned during training: 
@@ -73,4 +77,25 @@ Following the brief I ahve implemented the following tech stack as learned durin
 * Gunicorn to run the app
 * Systemsd to run the app as service 
 
+
+
+
+
+###CI Pipeline
+
+Below is an image depicting the flow of the app and how each part of the tech stack fits into the CI pipeline.
+
 ![CI Pipeline](https://user-images.githubusercontent.com/56595709/85229371-3ff11880-b3e1-11ea-95ae-694909481f6b.jpg)
+
+As can be seen in the image of the continuous integration pipeline the flow goes as follows:
+
+* Source code is created - this is where the programming of the app itself takes place on the GCP VM
+* When effective changes are made to the source code the code is then pushed up to the git repository on GitHub
+* After a block of code is pushed up to Github it is time to look at the project tracking on Trello to ascertain what the next task will be
+* This process continues until I am happy enough with the basic functionality of the code to start testing
+* By automating this through Jenkins it is possible to test and run the app just by triggering a Jenkins job
+* The Jenkins job will run Pytest and produce a report of the test results and will run the app itself as a systemsd service running on Gunicorn
+
+
+
+
