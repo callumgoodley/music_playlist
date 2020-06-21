@@ -30,7 +30,7 @@ class TestBase(LiveServerTestCase):
         chrome_options = Options()
         chrome_options.binary_location = "/usr/bin/chromium-browser"
         chrome_options.add_argument("--headless")
-        self.driver = webdriver.Chrome(executable_path="/home/jenkins/.jenkins/workspace/music_playlist/chromedriver", chrome_options=chrome_options)
+        self.driver = webdriver.Chrome(executable_path="/home/callumgoodley/chromedriver", chrome_options=chrome_options)
         self.driver.get("http://localhost:5000")
         db.session.commit()
         db.drop_all()
@@ -194,14 +194,3 @@ class TestPlaylist(TestBase):
         if __name__ == '__main__':
             unittest.main(port=5000)
 
-    def test_playlist_redirect(self):
-        # Navigate to playlist url without logging in
-        
-        self.driver.navigate().to("http://35.189.123.47:5000/playlist/1")
-        
-        # test that it has redirected to indvidual playlist url
-
-        assert url_for('login') in self.driver.current_url
-
-        if __name__ == '__main__':
-            unittest.main(port=5000)
