@@ -152,6 +152,12 @@ Lastly the user always has the ability to change their account details via the a
 
 ![risk](https://user-images.githubusercontent.com/56595709/85253838-eaefe980-b456-11ea-8531-8d3a8c153663.png)
 
+## Difficulties
+
+Layout/structure - The original id I had for the app was to have an 'add songs' page which would have a drop down menu of the users playlists to add the song to. Implementing this proved difficult and became time consuming when trying to append the playlist to the intermediary table in the database. Instead of a dropdown I opted to re-route the app and give each indiviual playlist its own page with an add a song functionality. I feel this was in hindisght the best way to do it anyway and improved the overall user experience and design flow of the app.
+
+Automation - I found some difficulty with commands not running in Jenkins as they would in the terminal. Specifically pytest would not seem to run pytest-cov and therefor I was unable to have Jenkins automatically generate html coverage reports as I would have liked to.
+
 ## Current issues
 
 * The main issue currently is that the redirects from certain URL's arent working when a user is not logged in
