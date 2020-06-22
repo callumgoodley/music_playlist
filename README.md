@@ -150,6 +150,20 @@ Lastly the user always has the ability to change their account details via the a
 
 ## Risk Assessment 
 
+![risk](https://user-images.githubusercontent.com/56595709/85253838-eaefe980-b456-11ea-8531-8d3a8c153663.png)
+
+## Current issues
+
+* The main issue currently is that the redirects from certain URL's arent working when a user is not logged in
+* Also users are currently able to create duplicated databases for which an alert and prevention could be in place
+
+
 ## Possible improvements
 
+* As previously mentioned this app would work very well as a digitisation of a physical record collection on playlist could be a want list with links to purchase the records
+* It would be great to connect user accounts to their social media accounts
+* The front end design could do with some colour and a better design as well
 
+## Author
+
+Callum Goodley
