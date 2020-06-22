@@ -31,6 +31,7 @@ class TestBase(LiveServerTestCase):
         chrome_options.binary_location = "/usr/bin/chromium-browser"
         chrome_options.add_argument("--headless")
         self.driver = webdriver.Chrome(executable_path="/home/jenkins/.jenkins/workspace/music_playlist/chromedriverr", chrome_options=chrome_options)
+
         self.driver.get("http://localhost:5000")
         db.session.commit()
         db.drop_all()
