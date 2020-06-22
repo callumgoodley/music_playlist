@@ -8,7 +8,7 @@ from flask_testing import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from application import app, db, bcrypt
-from application.models import Users
+from application.models import Users, Playlist
 
 test_admin_first_name = "test"
 test_admin_last_name = "user"
