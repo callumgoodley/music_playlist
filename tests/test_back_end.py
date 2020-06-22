@@ -2,9 +2,10 @@ import unittest
 
 from flask import url_for
 from flask_testing import TestCase
-
+from wtforms.validators import ValidationError
 from application import app, db, bcrypt
 from application.models import Users, Playlist, Song
+from application.forms import UpdateAccountForm, RegistrationForm
 from os import getenv
 
 class TestBase(TestCase):
@@ -62,7 +63,6 @@ class TestViews(TestBase):
         self.assertEqual(res1.status_code, 200)
         
         res2 = self.client.get(url_for('playlist'))
-        
         self.assertEqual(res2.status_code, 200)
     
     def test_individualplaylistpage_view(self):
@@ -77,7 +77,6 @@ class TestViews(TestBase):
         self.assertEqual(res1.status_code, 200)
 
         res2 = self.client.get(url_for('individual_playlist', number = 1))
-        
         self.assertEqual(res2.status_code, 200)
 
     def test_changeplaylistnamepage_view(self):
@@ -91,23 +90,7 @@ class TestViews(TestBase):
                     )
         self.assertEqual(res1.status_code, 200)
         
-        res2 = self.client.get(url_for('change_playlist_name', number = 1))
-
-        self.assertEqual(res2.status_code, 200)
-
-    def test_deleteplaylist_view(self):
-        res1 = self.client.post(
-                    '/login',
-                    data=dict(
-                        email="callumgoodley@gmail.com",
-                        password="callumgoodley"
-                        ),
-                    follow_redirects=True
-                    )
-        self.assertEqual(res1.status_code, 200)
-        
-        res2 = self.client.get(url_for('delete_playlist', number = 1),follow_redirects=True)
-        
+        res2 = self.client.get(url_for('change_playlist_name', number = 1),follow_redirects=True)
         self.assertEqual(res2.status_code, 200)
 
     def test_deletesong_view(self):
@@ -173,12 +156,37 @@ class TestPlaylist(TestBase):
             self.assertEqual(res1.status_code, 200)
             res2 = self.client.post(url_for('playlist',number = 1), data=dict(name='test_playlist', user_id = 1))
             self.assertIn(b'test_playlist', res2.data)
+    
+    def test_change_playlist_name(self):
+        with self.client:
+            
+            res1 = self.client.post(
+                    '/login',
+                    data=dict(
+                        email="callumgoodley@gmail.com",
+                        password="callumgoodley"
+                        ),
+                    follow_redirects=True
+                    )
+            self.assertEqual(res1.status_code, 200)
+
+            res2 = self.client.post(url_for('change_playlist_name', number = 1), data = dict(name="playlist_name_changed"))
+            playlist = Playlist.query.filter_by(id=1).first()
+
+            self.assertEqual('playlist_name_changed', playlist.name)
 
 
 class TestUser(TestBase):
 
     def test_add_new_user(self):
         with self.client:
-            res = self.client.post(url_for('register'), data=dict(first_name='test_user', last_name='ibwd', email='test@email.com', password ='password'))
-            self.assertIn(b'test_user', res.data)
+            
+            res = self.client.post(url_for('register'), data=dict(first_name='test_user', last_name='test_user', email='test@email.com', password ='password'))
+            
+            self.assertIn(b'test_user',res.data)
+
+            def test_validate_email(self):
+                with self.client:
+                    email = dict(data = 'callumgoodley@gmail.com')
+                    self.assertRaises(ValidationError, RegistrationForm.validate_email(self, email))
 
