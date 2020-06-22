@@ -17,7 +17,8 @@
 * Testing 
 * Front-End Design
 * Risk Assessment
-* Known Issues
+* Difficulties
+* Current Issues
 * Future Improvements
 * Authors
 
