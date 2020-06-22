@@ -14,7 +14,9 @@ test_admin_first_name = "test"
 test_admin_last_name = "user"
 test_admin_email = "test@user.com"
 test_admin_password = "testuser"
-playlist_no_name = ""
+test_playlist_name = "pop"
+test_new_playlist_name = "rock"
+
 class TestBase(LiveServerTestCase):
 
     def create_app(self):
