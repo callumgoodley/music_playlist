@@ -104,7 +104,7 @@ As can be seen in the image of the continuous integration pipeline the flow goes
 * When effective changes are made to the source code the code is then pushed up to the git repository on GitHub
 * After a block of code is pushed up to Github it is time to look at the project tracking on Trello to ascertain what the next task will be
 * This process continues until I am happy enough with the basic functionality of the code to start testing
-* By automating this through Jenkins it is possible to test and run the app just by triggering a Jenkins job
+* The testing is automate through Jenkins so whenever a changed is pushed to Github I am running a Jenkins job build.
 * The Jenkins job will run Pytest and produce a report of the test results and will run the app itself as a systemsd service running on Gunicorn
 
 ## Testing
