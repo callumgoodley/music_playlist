@@ -98,4 +98,93 @@ class TestLogin(TestBase):
         
         if __name__ == '__main__':
             unittest.main(port=5000)
+class TestPlaylist(TestBase):
+    def test_add_playlist(self):
+        # Click register menu link
+        self.driver.find_element_by_xpath("/html/body/a[3]").click()
+        time.sleep(1)
+        # Fill in registration form
+        self.driver.find_element_by_xpath('//*[@id="first_name"]').send_keys(test_admin_first_name)
+        self.driver.find_element_by_xpath('//*[@id="last_name"]').send_keys(test_admin_last_name)
+        self.driver.find_element_by_xpath('//*[@id="email"]').send_keys(test_admin_email)
+        self.driver.find_element_by_xpath('//*[@id="password"]').send_keys(test_admin_password)
+        self.driver.find_element_by_xpath('//*[@id="confirm_password"]').send_keys(test_admin_password)
+        self.driver.find_element_by_xpath('//*[@id="submit"]').click()
+        time.sleep(1)
+        # Assert that browser redirects to login page
+        assert url_for('login') in self.driver.current_url
+        # Fill in login form
+        self.driver.find_element_by_xpath('//*[@id="email"]').send_keys(test_admin_email)
+        self.driver.find_element_by_xpath('//*[@id="password"]').send_keys(test_admin_password)
+        self.driver.find_element_by_xpath('//*[@id="submit"]').click()
+        time.sleep(1)
+        # Assert that browser redirects to login page
+        assert url_for('playlist') in self.driver.current_url
+        # Add playlist name
+        self.driver.find_element_by_xpath('//*[@id="name"]').send_keys(test_playlist_name)
+        self.driver.find_element_by_xpath('//*[@id="submit"]').click()
+        time.sleep(1)
 
+        self.driver.find_element_by_xpath('/html/body/h3[1]/a').click()
+        
+        # Assert that browser redirects to playlist just create 
+        assert url_for('individual_playlist', number = 1) in self.driver.current_url
+
+        if __name__ == '__main__':
+            unittest.main(port=5000)
+
+    def test_update_playlist_name(self):
+        # Click register menu link
+        self.driver.find_element_by_xpath("/html/body/a[3]").click()
+        time.sleep(1)
+        # Fill in registration form
+        self.driver.find_element_by_xpath('//*[@id="first_name"]').send_keys(test_admin_first_name)
+        self.driver.find_element_by_xpath('//*[@id="last_name"]').send_keys(test_admin_last_name)
+        self.driver.find_element_by_xpath('//*[@id="email"]').send_keys(test_admin_email)
+        self.driver.find_element_by_xpath('//*[@id="password"]').send_keys(test_admin_password)
+        self.driver.find_element_by_xpath('//*[@id="confirm_password"]').send_keys(test_admin_password)
+        self.driver.find_element_by_xpath('//*[@id="submit"]').click()
+        time.sleep(1)
+        # Assert that browser redirects to login page
+        assert url_for('login') in self.driver.current_url
+        # Fill in login form
+        self.driver.find_element_by_xpath('//*[@id="email"]').send_keys(test_admin_email)
+        self.driver.find_element_by_xpath('//*[@id="password"]').send_keys(test_admin_password)
+        self.driver.find_element_by_xpath('//*[@id="submit"]').click()
+        time.sleep(1)
+        # Assert that browser redirects to login page
+        assert url_for('playlist') in self.driver.current_url
+        # Add playlist name
+        self.driver.find_element_by_xpath('//*[@id="name"]').send_keys(test_playlist_name)
+        self.driver.find_element_by_xpath('//*[@id="submit"]').click()
+        time.sleep(1)
+
+        # View playlist page 
+        self.driver.find_element_by_xpath('/html/body/h3[1]/a').click()
+        # Assert that browser redirects to playlist selected
+        assert url_for('individual_playlist', number = 1) in self.driver.current_url
+        
+        # Go to change playlist name page
+        self.driver.find_element_by_xpath('/html/body/form[1]/button').click()
+        
+        # Assert that click has taken browser to change playlist name page
+        assert url_for('change_playlist_name', number = 1) in self.driver.current_url
+
+        # add new playlist name
+        self.driver.find_element_by_xpath('//*[@id="name"]').clear()
+        self.driver.find_element_by_xpath('//*[@id="name"]').send_keys(test_new_playlist_name)
+        self.driver.find_element_by_xpath('//*[@id="submit"]').click()
+        time.sleep(1)
+
+        # assert that playlist name is now equal to new playlist name 
+
+        playlist = Playlist.query.filter_by(id=1).first()
+
+        assert playlist.name == test_new_playlist_name
+        
+        # test that it has redirected to indvidual playlist url
+
+        assert url_for('individual_playlist', number = 1) in self.driver.current_url
+
+        if __name__ == '__main__':
+            unittest.main(port=5000)
