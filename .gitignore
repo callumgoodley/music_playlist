@@ -1,4 +1,4 @@
 /pycache/
-/flask-blog-venv-two/
+/venv/
 *.pyc
 music_playlist.service
